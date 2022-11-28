@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'core/presentation/theme/theme_data.dart';
 import 'features/radio/presentation/pages/radio_main.page.dart';
 
 class MyApp extends StatelessWidget {
@@ -9,9 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: CustomThemeData.themeData,
       home: const RadioPage(),
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:radiostreaming/icon_sax_icons.dart';
+import 'package:radiostreaming/core/presentation/theme/icon_sax_icons.dart';
 import '../../../../core/presentation/theme/colors.dart';
 import '../../../../core/presentation/theme/textstyle.dart';
 
@@ -21,7 +21,6 @@ class ChapterItem extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            height: double.infinity,
             width: 60,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -51,7 +50,7 @@ class ChapterItem extends StatelessWidget {
           ),
           const Spacer(),
           const Icon(
-            Icons.download,
+            IconSax.document_download,
             color: Colors.orange,
             size: 24,
           ),

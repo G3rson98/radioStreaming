@@ -9,6 +9,15 @@ abstract class Style {
   static const s22 = _Size(22);
 }
 
+abstract class CustomTextTheme{
+
+  static TextTheme textTheme = TextTheme(
+    titleLarge: Style.s22.w700,
+    titleMedium: Style.s14.w300,
+    bodyMedium: const TextStyle(fontWeight: FontWeight.w400,fontSize: 14),
+  );
+}
+
 class _Size {
   final int size;
   const _Size(this.size);
