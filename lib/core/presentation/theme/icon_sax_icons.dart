@@ -28,4 +28,5 @@ class IconSax {
   static const IconData play_circle = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData stop_circle = IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData document_download = IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData pause_circle = IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
