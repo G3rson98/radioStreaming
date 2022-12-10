@@ -1,9 +1,12 @@
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 
 import 'audio_repository.dart';
 
 class JustAudioRepository extends AudioRepository {
   final _player = AudioPlayer();
+
+  Duration? _duration;
 
   @override
   Future<void> pause() async {
@@ -11,9 +14,18 @@ class JustAudioRepository extends AudioRepository {
   }
 
   @override
-  Future<void> playFromUrl(String url) async {
-    await _player.setUrl(url);
+  Future<void> playFromUrl(int id,String url,String title,String pictureUrl) async {
+    final audioSource = AudioSource.uri(Uri.parse(url),
+        tag: MediaItem(
+            id: id.toString(),
+            title: title,
+          artUri: Uri.parse(pictureUrl)
+        )
+    );
+
+    _duration = await _player.setAudioSource(audioSource);
     _player.play();
+
   }
 
   @override
@@ -25,5 +37,11 @@ class JustAudioRepository extends AudioRepository {
   Future<void> resume() async {
     await _player.play();
   }
+
+  @override
+  Stream<Duration> get positionStream => _player.positionStream;
+
+  @override
+  Duration? get audioDuration => _duration;
 
 }

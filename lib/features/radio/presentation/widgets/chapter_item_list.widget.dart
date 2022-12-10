@@ -18,7 +18,7 @@ class ChapterItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.read<AudioBloc>().add(PlayPause(audioFile: '163615c8-8b28-44b6-9ae4-cee13ed60453',id: item.id)),
+      onTap: () => context.read<AudioBloc>().add(PlayPause(item: item)),
       borderRadius: BorderRadius.circular(12),
       child: SizedBox(
         height: 60,
@@ -38,7 +38,6 @@ class ChapterItem extends StatelessWidget {
                     ),
                     BlocBuilder<AudioBloc,AudioState>(
                       builder: (_,state){
-                        print(state);
                         if(state is AudioPlaying){
                           if(state.idPlaying == item.id){
                             return const Center(

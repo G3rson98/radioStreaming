@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/audio/audio_repository.dart';
+import '../../../features/radio/domain/entities/history_item.dart';
 
 part 'audio_event.dart';
 part 'audio_state.dart';
@@ -15,19 +16,19 @@ class AudioBloc extends Bloc<AudioEvent, AudioState> {
 
 
       if(currentState is AudioPaused){
-        if(currentState.idPlaying==event.id){
+        if(currentState.idPlaying==event.item.id){
           _audio.resume();
-          emit(AudioPlaying(idPlaying: event.id));
+          emit(AudioPlaying(idPlaying: event.item.id));
           return ;
         }
       }
 
       //TODO: Ajustar luego
-      final urlToPlay = 'https://wyfv6blw.directus.app/assets/${event.audioFile}';
+      final urlToPlay = 'https://wyfv6blw.directus.app/assets/${event.item.file}';
 
       if(currentState is AudioPlaying){
 
-        if(currentState.idPlaying==event.id){
+        if(currentState.idPlaying==event.item.id){
           _audio.pause();
           emit(AudioPaused(idPlaying: currentState.idPlaying));
           return ;
@@ -35,10 +36,9 @@ class AudioBloc extends Bloc<AudioEvent, AudioState> {
         }
       }
 
-      _audio.playFromUrl(urlToPlay);
-      emit(AudioPlaying(idPlaying: event.id));
 
-
+      _audio.playFromUrl(event.item.id,urlToPlay,event.item.title,event.item.image);
+      emit(AudioPlaying(idPlaying: event.item.id));
 
 
     });
