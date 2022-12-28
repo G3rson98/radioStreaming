@@ -29,6 +29,11 @@ class JustAudioRepository extends AudioRepository {
   }
 
   @override
+  Future<void> seekAudioPosition(Duration position) async {
+    await _player.seek(position);
+  }
+
+  @override
   Future<void> stop() async {
     await _player.stop();
   }
@@ -43,5 +48,7 @@ class JustAudioRepository extends AudioRepository {
 
   @override
   Duration? get audioDuration => _duration;
+
+
 
 }

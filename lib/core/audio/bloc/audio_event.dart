@@ -15,6 +15,28 @@ class PlayPause extends AudioEvent {
 
 }
 
+class Playing extends AudioEvent {
+
+  final Duration currentPosition;
+
+  const Playing({required this.currentPosition});
+
+  @override
+  List<Object?> get props => [currentPosition];
+
+}
+
+
+class Seek extends AudioEvent {
+
+  final Duration currentPosition;
+
+  const Seek({required this.currentPosition});
+
+  @override
+  List<Object?> get props => [currentPosition];
+
+}
 
 class Stop extends AudioEvent {
 

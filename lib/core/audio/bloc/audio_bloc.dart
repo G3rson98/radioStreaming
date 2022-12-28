@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,15 +12,18 @@ part 'audio_state.dart';
 
 class AudioBloc extends Bloc<AudioEvent, AudioState> {
   final AudioRepository _audio;
-  AudioBloc(this._audio) : super(AudioNotPlaying()) {
-    on<PlayPause>((event, emit) {
-      final currentState = state;
 
+  late StreamSubscription<Duration> _durationSubscription;
+  AudioBloc(this._audio) : super(AudioNotPlaying()) {
+
+    on<PlayPause>((event, emit) async {
+      final currentState = state;
 
       if(currentState is AudioPaused){
         if(currentState.idPlaying==event.item.id){
+          _durationSubscription.resume();
           _audio.resume();
-          emit(AudioPlaying(idPlaying: event.item.id));
+          emit(AudioPlaying(idPlaying: event.item.id,totalDuration: _audio.audioDuration ?? const Duration()));
           return ;
         }
       }
@@ -28,6 +33,7 @@ class AudioBloc extends Bloc<AudioEvent, AudioState> {
 
       if(currentState is AudioPlaying){
 
+        _durationSubscription.pause();
         if(currentState.idPlaying==event.item.id){
           _audio.pause();
           emit(AudioPaused(idPlaying: currentState.idPlaying));
@@ -38,8 +44,34 @@ class AudioBloc extends Bloc<AudioEvent, AudioState> {
 
 
       _audio.playFromUrl(event.item.id,urlToPlay,event.item.title,event.item.image);
-      emit(AudioPlaying(idPlaying: event.item.id));
 
+      _durationSubscription = _audio.positionStream.listen((event) {
+        add(Playing(currentPosition: event));
+      });
+
+
+      emit(AudioPlaying(idPlaying: event.item.id,totalDuration: _audio.audioDuration ?? const Duration()));
+
+
+    });
+
+    on<Playing>((event, emit) {
+      final currentState = state;
+
+      if(currentState is AudioPlaying){
+        emit(AudioPlaying(idPlaying: currentState.idPlaying,currentPosition: event.currentPosition,totalDuration: _audio.audioDuration ?? const Duration()));
+      }
+
+    });
+
+
+    on<Seek>((event, emit) {
+      final currentState = state;
+
+      if(currentState is AudioPlaying){
+        _audio.seekAudioPosition(event.currentPosition);
+        emit(AudioPlaying(idPlaying: currentState.idPlaying,currentPosition: event.currentPosition,totalDuration: _audio.audioDuration ?? const Duration()));
+      }
 
     });
 

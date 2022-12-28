@@ -12,11 +12,13 @@ class AudioNotPlaying extends AudioState {
 class AudioPlaying extends AudioState {
 
   final int idPlaying;
+  final Duration currentPosition;
+  final Duration totalDuration;
 
-  const AudioPlaying({required this.idPlaying});
+  const AudioPlaying({required this.idPlaying,this.currentPosition = const Duration(),this.totalDuration = const Duration()});
 
   @override
-  List<Object> get props => [idPlaying];
+  List<Object> get props => [idPlaying,currentPosition,totalDuration];
 }
 
 class AudioPaused extends AudioState {

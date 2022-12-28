@@ -6,6 +6,7 @@ import '../../../../core/presentation/theme/colors.dart';
 import '../../../../core/presentation/theme/icon_sax_icons.dart';
 import '../../../../core/presentation/theme/textstyle.dart';
 import '../../domain/entities/history_item.dart';
+import 'audio_progress_bar.dart';
 
 class ChapterItem extends StatelessWidget {
   final HistoryItem item;
@@ -21,13 +22,14 @@ class ChapterItem extends StatelessWidget {
       onTap: () => context.read<AudioBloc>().add(PlayPause(item: item)),
       borderRadius: BorderRadius.circular(12),
       child: SizedBox(
-        height: 60,
+        height: 75,
         child: Row(
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: SizedBox(
-                width: 60,
+                width: 70,
+                height: 70,
                 child: Stack(
                   children: [
                     Image.network(item.image,
@@ -71,27 +73,32 @@ class ChapterItem extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              width: 19,
+              width: 15,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  item.title,
-                  style: Style.s14.w500?.apply(
-                    color: CustomColors.cornFlower,
+            Flexible(
+              fit: FlexFit.tight,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    item.title,
+                    style: Style.s14.w500?.apply(
+                      color: CustomColors.cornFlower,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 7),
-                Text(
-                  item.subTitle,
-                  style: Style.s12.w300?.apply(
-                    color: CustomColors.cornFlower.withOpacity(0.7),
+                  const SizedBox(height: 5),
+                  Text(
+                    item.subTitle,
+                    maxLines: 2,
+                    style: Style.s12.w300?.apply(
+                      color: CustomColors.cornFlower.withOpacity(0.7),
+                    ),
                   ),
-                ),
-              ],
+                  const Spacer(),
+                  AudioProgressBar(currentIdPlaying: item.id)
+                ],
+              ),
             ),
-            const Spacer(),
             const Icon(
               IconSax.document_download,
               color: Colors.orange,
