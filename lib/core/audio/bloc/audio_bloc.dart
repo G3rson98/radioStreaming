@@ -19,27 +19,28 @@ class AudioBloc extends Bloc<AudioEvent, AudioState> {
     on<PlayPause>((event, emit) async {
       final currentState = state;
 
-      if(currentState is AudioPaused){
-        if(currentState.idPlaying==event.item.id){
-          _durationSubscription.resume();
-          _audio.resume();
-          emit(AudioPlaying(idPlaying: event.item.id,totalDuration: _audio.audioDuration ?? const Duration()));
-          return ;
-        }
-      }
-
       //TODO: Ajustar luego
       final urlToPlay = 'https://wyfv6blw.directus.app/assets/${event.item.file}';
 
-      if(currentState is AudioPlaying){
+      if(currentState is AudioPlayingOrPaused){
 
-        _durationSubscription.pause();
-        if(currentState.idPlaying==event.item.id){
-          _audio.pause();
-          emit(AudioPaused(idPlaying: currentState.idPlaying));
-          return ;
+          if(currentState.idPlaying==event.item.id){
 
-        }
+            if(currentState.isPaused) {
+              _durationSubscription.resume();
+              _audio.resume();
+              emit(AudioPlayingOrPaused(idPlaying: event.item.id,totalDuration: _audio.audioDuration ?? const Duration(),isPaused: false));
+              return ;
+            }
+
+            _durationSubscription.pause();
+
+            final currentPosition = await _audio.pause();
+
+            emit(AudioPlayingOrPaused(idPlaying: currentState.idPlaying,currentPosition: currentPosition,totalDuration: _audio.audioDuration ?? const Duration(),isPaused: true));
+            return ;
+
+          }
       }
 
 
@@ -50,7 +51,7 @@ class AudioBloc extends Bloc<AudioEvent, AudioState> {
       });
 
 
-      emit(AudioPlaying(idPlaying: event.item.id,totalDuration: _audio.audioDuration ?? const Duration()));
+      emit(AudioPlayingOrPaused(idPlaying: event.item.id,totalDuration: _audio.audioDuration ?? const Duration()));
 
 
     });
@@ -58,8 +59,8 @@ class AudioBloc extends Bloc<AudioEvent, AudioState> {
     on<Playing>((event, emit) {
       final currentState = state;
 
-      if(currentState is AudioPlaying){
-        emit(AudioPlaying(idPlaying: currentState.idPlaying,currentPosition: event.currentPosition,totalDuration: _audio.audioDuration ?? const Duration()));
+      if(currentState is AudioPlayingOrPaused){
+        emit(AudioPlayingOrPaused(idPlaying: currentState.idPlaying,currentPosition: event.currentPosition,totalDuration: _audio.audioDuration ?? const Duration(),isPaused: currentState.isPaused));
       }
 
     });
@@ -68,9 +69,9 @@ class AudioBloc extends Bloc<AudioEvent, AudioState> {
     on<Seek>((event, emit) {
       final currentState = state;
 
-      if(currentState is AudioPlaying){
+      if(currentState is AudioPlayingOrPaused){
         _audio.seekAudioPosition(event.currentPosition);
-        emit(AudioPlaying(idPlaying: currentState.idPlaying,currentPosition: event.currentPosition,totalDuration: _audio.audioDuration ?? const Duration()));
+        emit(AudioPlayingOrPaused(idPlaying: currentState.idPlaying,currentPosition: event.currentPosition,totalDuration: _audio.audioDuration ?? const Duration(),isPaused: currentState.isPaused));
       }
 
     });

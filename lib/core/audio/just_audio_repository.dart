@@ -9,8 +9,9 @@ class JustAudioRepository extends AudioRepository {
   Duration? _duration;
 
   @override
-  Future<void> pause() async {
+  Future<Duration> pause() async {
     await _player.pause();
+    return _player.position;
   }
 
   @override

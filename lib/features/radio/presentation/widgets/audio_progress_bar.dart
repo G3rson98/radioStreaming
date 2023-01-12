@@ -12,9 +12,9 @@ class AudioProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AudioBloc, AudioState>(
       builder: (context, state) {
-        if(state is AudioPlaying){
+        if(state is AudioPlayingOrPaused){
           if(state.idPlaying == currentIdPlaying){
-            return Row(
+            return Column(
               children: [
                 SizedBox(
                   height: 20,
@@ -25,6 +25,15 @@ class AudioProgressBar extends StatelessWidget {
                     max: state.totalDuration.inSeconds.toDouble(),
                   ),
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(state.currentPosition.toString().substring(0,7),style: const TextStyle(color: Colors.white),),
+                    Text(state.totalDuration.toString().substring(0,7),style: const TextStyle(color: Colors.white),)
+                  ],
+                ),
+
+
               ],
             );
           }

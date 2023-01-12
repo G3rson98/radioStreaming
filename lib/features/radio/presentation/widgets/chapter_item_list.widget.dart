@@ -40,25 +40,22 @@ class ChapterItem extends StatelessWidget {
                     ),
                     BlocBuilder<AudioBloc,AudioState>(
                       builder: (_,state){
-                        if(state is AudioPlaying){
+                        if(state is AudioPlayingOrPaused){
                           if(state.idPlaying == item.id){
+                            if(state.isPaused){
+                              return const Center(
+                                child: Icon(
+                                    IconSax.play_circle,
+                                    color: Colors.white70,
+                                    size: 32
+                                ),
+                              );
+                            }
                             return const Center(
                               child: Icon(
-                                IconSax.play_circle,
+                                IconSax.pause_circle,
                                 color: Colors.white70,
                                 size: 32
-                              ),
-                            );
-                          }
-                        }
-
-                        if(state is AudioPaused){
-                          if(state.idPlaying == item.id){
-                            return const Center(
-                              child: Icon(
-                                  IconSax.pause_circle,
-                                  color: Colors.white70,
-                                  size: 32
                               ),
                             );
                           }
