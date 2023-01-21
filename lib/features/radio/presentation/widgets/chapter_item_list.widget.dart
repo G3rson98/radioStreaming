@@ -6,6 +6,7 @@ import '../../../../core/presentation/theme/colors.dart';
 import '../../../../core/presentation/theme/icon_sax_icons.dart';
 import '../../../../core/presentation/theme/textstyle.dart';
 import '../../domain/entities/history_item.dart';
+import 'audio_progress_bar.dart';
 
 class ChapterItem extends StatelessWidget {
   final HistoryItem item;
@@ -18,16 +19,17 @@ class ChapterItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.read<AudioBloc>().add(PlayPause(audioFile: '163615c8-8b28-44b6-9ae4-cee13ed60453',id: item.id)),
+      onTap: () => context.read<AudioBloc>().add(PlayPause(item: item)),
       borderRadius: BorderRadius.circular(12),
       child: SizedBox(
-        height: 60,
+        height: 75,
         child: Row(
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: SizedBox(
-                width: 60,
+                width: 70,
+                height: 70,
                 child: Stack(
                   children: [
                     Image.network(item.image,
@@ -38,26 +40,22 @@ class ChapterItem extends StatelessWidget {
                     ),
                     BlocBuilder<AudioBloc,AudioState>(
                       builder: (_,state){
-                        print(state);
-                        if(state is AudioPlaying){
+                        if(state is AudioPlayingOrPaused){
                           if(state.idPlaying == item.id){
+                            if(state.isPaused){
+                              return const Center(
+                                child: Icon(
+                                    IconSax.play_circle,
+                                    color: Colors.white70,
+                                    size: 32
+                                ),
+                              );
+                            }
                             return const Center(
                               child: Icon(
-                                IconSax.play_circle,
+                                IconSax.pause_circle,
                                 color: Colors.white70,
                                 size: 32
-                              ),
-                            );
-                          }
-                        }
-
-                        if(state is AudioPaused){
-                          if(state.idPlaying == item.id){
-                            return const Center(
-                              child: Icon(
-                                  IconSax.pause_circle,
-                                  color: Colors.white70,
-                                  size: 32
                               ),
                             );
                           }
@@ -72,27 +70,32 @@ class ChapterItem extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              width: 19,
+              width: 15,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  item.title,
-                  style: Style.s14.w500?.apply(
-                    color: CustomColors.cornFlower,
+            Flexible(
+              fit: FlexFit.tight,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    item.title,
+                    style: Style.s14.w500?.apply(
+                      color: CustomColors.cornFlower,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 7),
-                Text(
-                  item.subTitle,
-                  style: Style.s12.w300?.apply(
-                    color: CustomColors.cornFlower.withOpacity(0.7),
+                  const SizedBox(height: 5),
+                  Text(
+                    item.subTitle,
+                    maxLines: 2,
+                    style: Style.s12.w300?.apply(
+                      color: CustomColors.cornFlower.withOpacity(0.7),
+                    ),
                   ),
-                ),
-              ],
+                  const Spacer(),
+                  AudioProgressBar(currentIdPlaying: item.id)
+                ],
+              ),
             ),
-            const Spacer(),
             const Icon(
               IconSax.document_download,
               color: Colors.orange,

@@ -1,45 +1,78 @@
 
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/audio/audio_repository.dart';
+import '../../../features/radio/domain/entities/history_item.dart';
 
 part 'audio_event.dart';
 part 'audio_state.dart';
 
 class AudioBloc extends Bloc<AudioEvent, AudioState> {
   final AudioRepository _audio;
+
+  late StreamSubscription<Duration> _durationSubscription;
   AudioBloc(this._audio) : super(AudioNotPlaying()) {
-    on<PlayPause>((event, emit) {
+
+    on<PlayPause>((event, emit) async {
       final currentState = state;
 
-
-      if(currentState is AudioPaused){
-        if(currentState.idPlaying==event.id){
-          _audio.resume();
-          emit(AudioPlaying(idPlaying: event.id));
-          return ;
-        }
-      }
-
       //TODO: Ajustar luego
-      final urlToPlay = 'https://wyfv6blw.directus.app/assets/${event.audioFile}';
+      final urlToPlay = 'https://wyfv6blw.directus.app/assets/${event.item.file}';
 
-      if(currentState is AudioPlaying){
+      if(currentState is AudioPlayingOrPaused){
 
-        if(currentState.idPlaying==event.id){
-          _audio.pause();
-          emit(AudioPaused(idPlaying: currentState.idPlaying));
-          return ;
+          if(currentState.idPlaying==event.item.id){
 
-        }
+            if(currentState.isPaused) {
+              _durationSubscription.resume();
+              _audio.resume();
+              emit(AudioPlayingOrPaused(idPlaying: event.item.id,totalDuration: _audio.audioDuration ?? const Duration(),isPaused: false));
+              return ;
+            }
+
+            _durationSubscription.pause();
+
+            final currentPosition = await _audio.pause();
+
+            emit(AudioPlayingOrPaused(idPlaying: currentState.idPlaying,currentPosition: currentPosition,totalDuration: _audio.audioDuration ?? const Duration(),isPaused: true));
+            return ;
+
+          }
       }
 
-      _audio.playFromUrl(urlToPlay);
-      emit(AudioPlaying(idPlaying: event.id));
+
+      _audio.playFromUrl(event.item.id,urlToPlay,event.item.title,event.item.image);
+
+      _durationSubscription = _audio.positionStream.listen((event) {
+        add(Playing(currentPosition: event));
+      });
 
 
+      emit(AudioPlayingOrPaused(idPlaying: event.item.id,totalDuration: _audio.audioDuration ?? const Duration()));
 
+
+    });
+
+    on<Playing>((event, emit) {
+      final currentState = state;
+
+      if(currentState is AudioPlayingOrPaused){
+        emit(AudioPlayingOrPaused(idPlaying: currentState.idPlaying,currentPosition: event.currentPosition,totalDuration: _audio.audioDuration ?? const Duration(),isPaused: currentState.isPaused));
+      }
+
+    });
+
+
+    on<Seek>((event, emit) {
+      final currentState = state;
+
+      if(currentState is AudioPlayingOrPaused){
+        _audio.seekAudioPosition(event.currentPosition);
+        emit(AudioPlayingOrPaused(idPlaying: currentState.idPlaying,currentPosition: event.currentPosition,totalDuration: _audio.audioDuration ?? const Duration(),isPaused: currentState.isPaused));
+      }
 
     });
 

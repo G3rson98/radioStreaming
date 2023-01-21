@@ -6,16 +6,37 @@ abstract class AudioEvent extends Equatable {
 
 class PlayPause extends AudioEvent {
 
-  final String audioFile;
-  final int id;
+  final HistoryItem item;
 
-  const PlayPause({required this.audioFile,required this.id});
+  const PlayPause({required this.item});
 
   @override
-  List<Object?> get props => [audioFile,id];
+  List<Object?> get props => [item];
 
 }
 
+class Playing extends AudioEvent {
+
+  final Duration currentPosition;
+
+  const Playing({required this.currentPosition});
+
+  @override
+  List<Object?> get props => [currentPosition];
+
+}
+
+
+class Seek extends AudioEvent {
+
+  final Duration currentPosition;
+
+  const Seek({required this.currentPosition});
+
+  @override
+  List<Object?> get props => [currentPosition];
+
+}
 
 class Stop extends AudioEvent {
 
