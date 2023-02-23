@@ -9,6 +9,21 @@ class CustomThemeData{
     primaryColor: CustomColors.prussianBlue,
     fontFamily: 'Ubuntu',
     textTheme: CustomTextTheme.textTheme,
+    useMaterial3: true,
+    navigationBarTheme: const NavigationBarThemeData(
+      indicatorColor: CustomColors.prussianBlue,
+      backgroundColor:  CustomColors.barBrown,
+        iconTheme: MaterialStatePropertyAll(
+            IconThemeData(
+                color: CustomColors.cornFlower,
+            )
+        ),
+      labelTextStyle: MaterialStatePropertyAll(
+          TextStyle(
+              color: CustomColors.cornFlower
+          )
+      ),
+    ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedIconTheme: IconThemeData(
           color: CustomColors.licorice,

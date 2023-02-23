@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/presentation/theme/theme_data.dart';
 import 'dependencies.dart';
+import 'features/menu/presentation/bloc/navigation_bar_cubit.dart';
 import 'features/radio/presentation/pages/radio_main.page.dart';
 
 class MyApp extends StatelessWidget {
@@ -16,7 +17,10 @@ class MyApp extends StatelessWidget {
         title: 'Luz de esperanza',
         debugShowCheckedModeBanner: false,
         theme: CustomThemeData.themeData,
-        home: const RadioPage(),
+        home: BlocProvider(
+          create: (_) => NavigationBarCubit(),
+          child: const RadioPage()
+        ),
       ),
     );
   }

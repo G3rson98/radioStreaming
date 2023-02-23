@@ -6,6 +6,6 @@ abstract class CustomColors {
   static const Color skyBlue = Color(0xFF219EBC);
   static const Color prussianBlue = Color(0xFF023047);
   static const Color lightOrange = Color(0xFFFB8500);
-
+  static const Color barBrown = Color(0xFF584848);
 
 }
