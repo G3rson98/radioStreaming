@@ -5,11 +5,12 @@ import '../../../../core/audio/bloc/audio_bloc.dart';
 import '../../../../core/presentation/theme/colors.dart';
 import '../../../../core/presentation/theme/icon_sax_icons.dart';
 import '../../../../core/presentation/theme/textstyle.dart';
-import '../../domain/entities/history_item.dart';
+import '../../domain/entities/audio_item.dart';
+import '../bloc/radio_bloc.dart';
 import 'audio_progress_bar.dart';
 
 class ChapterItem extends StatelessWidget {
-  final HistoryItem item;
+  final AudioItem item;
 
   const ChapterItem({
     super.key,
@@ -38,7 +39,13 @@ class ChapterItem extends StatelessWidget {
                     Container(
                       color: Colors.black12,
                     ),
-                    BlocBuilder<AudioBloc,AudioState>(
+                    BlocConsumer<AudioBloc,AudioState>(
+                      listener: (context,state){
+                        if(state is AudioPlayingOrPaused){
+                          context.read<RadioBloc>().add(StopRadio());
+
+                        }
+                      },
                       builder: (_,state){
                         if(state is AudioPlayingOrPaused){
                           if(state.idPlaying == item.id){

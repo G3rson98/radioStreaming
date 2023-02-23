@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: repositories,
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Luz de esperanza',
         debugShowCheckedModeBanner: false,
         theme: CustomThemeData.themeData,
         home: const RadioPage(),

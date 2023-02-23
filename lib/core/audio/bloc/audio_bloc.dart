@@ -5,7 +5,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/audio/audio_repository.dart';
-import '../../../features/radio/domain/entities/history_item.dart';
+import '../../../features/radio/domain/entities/audio_item.dart';
+import '../../http/http_options.dart';
 
 part 'audio_event.dart';
 part 'audio_state.dart';
@@ -19,8 +20,7 @@ class AudioBloc extends Bloc<AudioEvent, AudioState> {
     on<PlayPause>((event, emit) async {
       final currentState = state;
 
-      //TODO: Ajustar luego
-      final urlToPlay = 'https://wyfv6blw.directus.app/assets/${event.item.file}';
+      final urlToPlay = '${HttpOptions.apiUrl}/assets/${event.item.file}';
 
       if(currentState is AudioPlayingOrPaused){
 
@@ -78,7 +78,7 @@ class AudioBloc extends Bloc<AudioEvent, AudioState> {
 
     on<Stop>((event, emit) {
 
-      _audio.stop();
+      //_audio.stop();
       emit(AudioNotPlaying());
     });
   }
