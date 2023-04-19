@@ -23,7 +23,7 @@ class ChapterItem extends StatelessWidget {
       onTap: () => context.read<AudioBloc>().add(PlayPause(item: item)),
       borderRadius: BorderRadius.circular(12),
       child: SizedBox(
-        height: 75,
+        height: 85,
         child: Row(
           children: [
             ClipRRect(

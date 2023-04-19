@@ -10,6 +10,7 @@ class CustomThemeData{
     fontFamily: 'Ubuntu',
     textTheme: CustomTextTheme.textTheme,
     useMaterial3: true,
+    scaffoldBackgroundColor: CustomColors.licorice,
     navigationBarTheme: const NavigationBarThemeData(
       indicatorColor: CustomColors.prussianBlue,
       backgroundColor:  CustomColors.barBrown,
