@@ -12,8 +12,8 @@ class SocialNetworkMenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: SvgPicture.network(socialNetwork.imageUrl),
-      title: Text(socialNetwork.name),
+      leading: SvgPicture.network(socialNetwork.imageUrl,colorFilter: ColorFilter.mode(socialNetwork.color, BlendMode.srcIn),),
+      title: Text(socialNetwork.name,style: TextStyle(color: socialNetwork.color)),
     );
   }
 }

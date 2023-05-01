@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/presentation/theme/icon_sax_icons.dart';
+import '../../../../core/router/routes.dart';
 import '../bloc/navigation_bar_cubit.dart';
 
 class MenuBottomBar extends StatelessWidget {
@@ -11,7 +13,15 @@ class MenuBottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15),
-      child: BlocBuilder<NavigationBarCubit, int>(
+      child: BlocConsumer<NavigationBarCubit, int>(
+        listener: (_,state){
+          if(state==0){
+            context.go(Routes.radio);
+          }
+          if(state==3){
+            context.go(Routes.menu);
+          }
+        },
         builder: (context, state) {
           return ClipRRect(
             borderRadius: BorderRadius.circular(150),
