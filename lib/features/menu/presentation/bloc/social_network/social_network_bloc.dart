@@ -21,5 +21,6 @@ class SocialNetworkBloc extends Bloc<SocialNetworkEvent, SocialNetworkState> {
               (socialNetworks)  => SocialNetworkLoaded(socialNetworks: socialNetworks)
       ));
     });
+
   }
 }

@@ -9,6 +9,9 @@ class ErrorMessages{
 
   static const String genericAuthMessageError   = 'Usuario o contraseña invalida';
 
+  static const String cantLaunchUrlMessage   = 'No se puede abrir el enlace';
+
+
   static String mapFailureToMessage(Failure failure) {
     switch(failure.runtimeType){
       case ServerFailure:

@@ -22,6 +22,7 @@ class SocialNetworkRepositoryImpl implements SocialNetworkRepository{
       }on ServerException {
         return Left(ServerFailure());
       } on SocketException{
+        print('eeeyy');
         return Left(SocketFailure());
       }
 

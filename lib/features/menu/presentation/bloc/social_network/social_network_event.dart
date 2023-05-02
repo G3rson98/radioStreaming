@@ -6,6 +6,6 @@ abstract class SocialNetworkEvent extends Equatable {
 
 class InitSocialNetworks extends SocialNetworkEvent{
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props =>[];
 
 }

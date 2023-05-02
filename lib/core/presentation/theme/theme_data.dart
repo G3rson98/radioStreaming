@@ -8,7 +8,7 @@ class CustomThemeData{
   static final ThemeData themeData = ThemeData(
     primaryColor: CustomColors.prussianBlue,
     fontFamily: 'Ubuntu',
-    textTheme: CustomTextTheme.textTheme,
+    textTheme: CustomTextTheme.textThemeDark,
     useMaterial3: true,
     scaffoldBackgroundColor: CustomColors.licorice,
     navigationBarTheme: const NavigationBarThemeData(

@@ -11,9 +11,15 @@ abstract class Style {
 
 abstract class CustomTextTheme{
 
-  static TextTheme textTheme = TextTheme(
+  static TextTheme textThemeLight = TextTheme(
     titleLarge: Style.s22.w700,
-    titleMedium: Style.s14.w300,
+    titleMedium: Style.s14.w400,
+    bodyMedium: const TextStyle(fontWeight: FontWeight.w400,fontSize: 14),
+  );
+
+  static TextTheme textThemeDark = TextTheme(
+    titleLarge: Style.s22.w700!.apply(color: Colors.white.withOpacity(0.7)),
+    titleMedium: Style.s16.w400!.apply(color: Colors.white.withOpacity(0.7)),
     bodyMedium: const TextStyle(fontWeight: FontWeight.w400,fontSize: 14),
   );
 }

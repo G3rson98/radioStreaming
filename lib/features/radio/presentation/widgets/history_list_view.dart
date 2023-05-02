@@ -8,7 +8,7 @@ class HistoryListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  SliverList(
+    return SliverList(
         delegate: SliverChildBuilderDelegate(
                 (_,index) => Padding(
               padding:
@@ -18,8 +18,8 @@ class HistoryListView extends StatelessWidget {
                     id: index+1,
                     title: 'Episodio ${index+1}',
                     subTitle: 'Hablamos de todo',
-                    file: '163615c8-8b28-44b6-9ae4-cee13ed60453',
-                    image: 'https://wyfv6blw.directus.app/assets/949e269b-19a4-4cc8-ab5f-6e9ff06e80ef?width=80&height=80'),
+                    file: 'e968d3b1-2a5f-4908-b324-632474f35631',
+                    image: 'https://directus.elroir.cloud/assets/f1b024bf-3d31-4ea3-8736-e2c72bd8a3ac?width=80&height=80'),
               ),
             ),
             childCount: 10

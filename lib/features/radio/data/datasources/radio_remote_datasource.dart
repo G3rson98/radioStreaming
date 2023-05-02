@@ -2,12 +2,14 @@
 import 'package:dio/dio.dart';
 
 import '../../../../core/http/entities/http_response.dart';
-import '../../domain/entities/audio_item.dart';
 import '../models/radio_model.dart';
 
 abstract class RadioRemoteDataSource{
-
-  Future<HttpResponse<AudioItem>> getRadio();
+  ///Calls the [apiUrl]/items/radio endpoint to get the main radio data
+  ///
+  /// Throws a [ServerException] for all error codes
+  /// Throws a [SocketException] if no response is sent
+  Future<HttpResponse<RadioModel>> getRadio();
 }
 
 
@@ -18,7 +20,7 @@ class RadioRemoteDataSourceImpl implements RadioRemoteDataSource{
   RadioRemoteDataSourceImpl(this._dio);
 
   @override
-  Future<HttpResponse<AudioItem>> getRadio() async {
+  Future<HttpResponse<RadioModel>> getRadio() async {
 
     try{
       final response = await _dio.get("/items/radio");

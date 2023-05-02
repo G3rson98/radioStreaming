@@ -6,6 +6,7 @@ import '../../features/home/presentation/bloc/navigation_bar_cubit.dart';
 import '../../features/menu/presentation/pages/menu_page.dart';
 import '../../features/radio/presentation/bloc/radio_bloc.dart';
 import '../../features/radio/presentation/pages/radio_main.page.dart';
+import '../audio/bloc/audio_bloc.dart';
 import 'routes.dart';
 
 class CustomRouter{
@@ -20,6 +21,7 @@ class CustomRouter{
             return MultiBlocProvider(
               providers: [
                 BlocProvider(create: (context) => RadioBloc(context.read(),context.read())..add(InitRadio())),
+                BlocProvider(create: (context) => AudioBloc(context.read())),
                 BlocProvider(create: (context) => NavigationBarCubit())
 
               ],
