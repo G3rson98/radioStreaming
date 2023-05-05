@@ -11,6 +11,9 @@ class CustomThemeData{
     textTheme: CustomTextTheme.textThemeDark,
     useMaterial3: true,
     scaffoldBackgroundColor: CustomColors.licorice,
+    appBarTheme: AppBarTheme(
+      backgroundColor: CustomColors.licorice
+    ),
     navigationBarTheme: const NavigationBarThemeData(
       indicatorColor: CustomColors.prussianBlue,
       backgroundColor:  CustomColors.barBrown,

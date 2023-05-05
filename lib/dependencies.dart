@@ -9,7 +9,7 @@ import 'core/network/url_repository.dart';
 import 'features/home/domain/use_cases/check_url_use_case.dart';
 import 'features/home/domain/use_cases/open_url_use_case.dart';
 import 'features/menu/data/data_sources/social_network_remote_datasource.dart';
-import 'features/menu/data/repositories/social_network_repository_imp,.dart';
+import 'features/menu/data/repositories/social_network_repository_impl.dart';
 import 'features/menu/domain/repositories/social_network_repository.dart';
 import 'features/menu/domain/use_cases/get_social_networks_use_case.dart';
 import 'features/radio/data/datasources/radio_remote_datasource.dart';

@@ -6,8 +6,13 @@ import '../../features/home/presentation/bloc/navigation_bar_cubit.dart';
 import '../../features/menu/presentation/pages/menu_page.dart';
 import '../../features/radio/presentation/bloc/radio_bloc.dart';
 import '../../features/radio/presentation/pages/radio_main.page.dart';
+import '../../features/video/presentation/bloc/web_view_bloc.dart';
+import '../../features/video/presentation/pages/video_page.dart';
 import '../audio/bloc/audio_bloc.dart';
-import 'routes.dart';
+
+export 'package:go_router/go_router.dart';
+
+part 'routes.dart';
 
 class CustomRouter{
   static final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -23,13 +28,16 @@ class CustomRouter{
                 BlocProvider(create: (context) => RadioBloc(context.read(),context.read())..add(InitRadio())),
                 BlocProvider(create: (context) => AudioBloc(context.read())),
                 BlocProvider(create: (context) => NavigationBarCubit())
-
               ],
               child: HomePage(child: child),
             );
           },
           routes: [
             _mainRoutesBuilder(const RadioPage(), Routes.radio),
+            _mainRoutesBuilder(BlocProvider(
+              create: (context) => WebViewBloc()..add(LoadWebView()),
+              child: const VideoPage(),
+            ), Routes.video),
             _mainRoutesBuilder(const MenuPage(), Routes.menu),
           ]
         )
@@ -50,12 +58,14 @@ class CustomRouter{
   static GoRoute _mainRoutesBuilder(Widget child,String path,{String? name}) => GoRoute(
       path: path,
       name: name,
-      pageBuilder: (context,state) => CustomTransitionPage(
-        key: state.pageKey,
-        child: child,
-        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-            FadeTransition(opacity: animation, child: child),
-      )
+      pageBuilder: (context,state) {
+        return CustomTransitionPage(
+          key: state.pageKey,
+          child: child,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              FadeTransition(opacity: animation, child: child),
+        );
+      }
 
   );
 
