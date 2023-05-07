@@ -44,7 +44,7 @@ class AudioBloc extends Bloc<AudioEvent, AudioState> {
       }
 
 
-      _audio.playFromUrl(event.item.id,urlToPlay,event.item.title,event.item.image);
+      _audio.playFromUrl(event.item.id,urlToPlay,event.item.title,event.item.getImage());
 
       _durationSubscription = _audio.positionStream.listen((event) {
         add(Playing(currentPosition: event));

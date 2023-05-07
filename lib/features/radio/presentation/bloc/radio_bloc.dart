@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/audio/audio_repository.dart';
-import '../../../../core/http/http_options.dart';
 import '../../domain/entities/audio_item.dart';
 import '../../domain/repositories/radio_repository.dart';
 
@@ -20,7 +19,7 @@ class RadioBloc extends Bloc<RadioEvent, RadioState> {
 
       final radio = await _radio.getRadio();
       if(radio.ok){
-        emit(RadioLoaded(radio: radio.data!,imageUrl: '${HttpOptions.apiUrl}/assets/${radio.data!.image}'));
+        emit(RadioLoaded(radio: radio.data!,imageUrl: radio.data!.getImage()));
       }else{
         emit(RadioError());
       }

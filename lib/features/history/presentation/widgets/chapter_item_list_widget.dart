@@ -5,8 +5,8 @@ import '../../../../core/audio/bloc/audio_bloc.dart';
 import '../../../../core/presentation/theme/colors.dart';
 import '../../../../core/presentation/theme/icon_sax_icons.dart';
 import '../../../../core/presentation/theme/textstyle.dart';
-import '../../domain/entities/audio_item.dart';
-import '../bloc/radio_bloc.dart';
+import '../../../radio/domain/entities/audio_item.dart';
+import '../../../radio/presentation/bloc/radio_bloc.dart';
 import 'audio_progress_bar.dart';
 
 class ChapterItem extends StatelessWidget {
@@ -23,17 +23,17 @@ class ChapterItem extends StatelessWidget {
       onTap: () => context.read<AudioBloc>().add(PlayPause(item: item)),
       borderRadius: BorderRadius.circular(12),
       child: SizedBox(
-        height: 85,
+        height: 95,
         child: Row(
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: SizedBox(
-                width: 70,
-                height: 70,
+                width: 80,
+                height: 80,
                 child: Stack(
                   children: [
-                    Image.network(item.image,
+                    Image.network(item.getImage(width: 80,height: 80),
                         fit: BoxFit.cover,
                     ),
                     Container(
@@ -90,7 +90,6 @@ class ChapterItem extends StatelessWidget {
                       color: CustomColors.cornFlower,
                     ),
                   ),
-                  const SizedBox(height: 5),
                   Text(
                     item.subTitle,
                     maxLines: 2,
@@ -102,11 +101,6 @@ class ChapterItem extends StatelessWidget {
                   AudioProgressBar(currentIdPlaying: item.id)
                 ],
               ),
-            ),
-            const Icon(
-              IconSax.document_download,
-              color: Colors.orange,
-              size: 24,
             ),
           ],
         ),

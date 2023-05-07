@@ -1,6 +1,8 @@
-import 'package:dio/dio.dart';
-import 'package:radiostreaming/core/error/exceptions.dart';
+import 'dart:io';
 
+import 'package:dio/dio.dart';
+
+import '../../../../core/error/exceptions.dart';
 import '../models/social_network_model.dart';
 
 abstract class SocialNetworkRemoteDataSource{
@@ -21,6 +23,8 @@ class SocialNetworkRemoteDataSourceImpl implements SocialNetworkRemoteDataSource
   @override
   Future<List<SocialNetworkModel>> getSocialNetworks() async {
 
+
+    try{
       final response = await _dio.get("/items/network");
 
       final List<SocialNetworkModel> networks = [];
@@ -34,6 +38,10 @@ class SocialNetworkRemoteDataSourceImpl implements SocialNetworkRemoteDataSource
       }
 
       return networks;
+    }catch(e){
+      rethrow ;
+    }
+
 
   }
 

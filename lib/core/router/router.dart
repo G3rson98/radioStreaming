@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../features/home/presentation/bloc/ad/ad_bloc.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/home/presentation/bloc/navigation_bar_cubit.dart';
 import '../../features/menu/presentation/pages/menu_page.dart';
@@ -27,7 +28,8 @@ class CustomRouter{
               providers: [
                 BlocProvider(create: (context) => RadioBloc(context.read(),context.read())..add(InitRadio())),
                 BlocProvider(create: (context) => AudioBloc(context.read())),
-                BlocProvider(create: (context) => NavigationBarCubit())
+                BlocProvider(create: (context) => NavigationBarCubit()),
+                BlocProvider(create: (context) => AdBloc()..add(InitAds()))
               ],
               child: HomePage(child: child),
             );
