@@ -71,7 +71,12 @@ class AudioBloc extends Bloc<AudioEvent, AudioState> {
 
       if(currentState is AudioPlayingOrPaused){
         _audio.seekAudioPosition(event.currentPosition);
-        emit(AudioPlayingOrPaused(idPlaying: currentState.idPlaying,currentPosition: event.currentPosition,totalDuration: _audio.audioDuration ?? const Duration(),isPaused: currentState.isPaused));
+        final totalDuration = _audio.audioDuration ?? const Duration();
+        if(event.currentPosition.inSeconds>=totalDuration.inSeconds){
+          emit(AudioNotPlaying());
+          return ;
+        }
+        emit(AudioPlayingOrPaused(idPlaying: currentState.idPlaying,currentPosition: event.currentPosition,totalDuration: totalDuration,isPaused: currentState.isPaused));
       }
 
     });

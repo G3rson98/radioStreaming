@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 
 class HttpOptions{
 
-  static const devUrl = 'https://directus.elroir.cloud';
+  static const _devUrl = 'https://directus.elroir.cloud';
 
-  static const apiUrl = devUrl;
+  static const apiUrl = _devUrl;
 
   static Dio get dio => Dio(BaseOptions(
     baseUrl: apiUrl,

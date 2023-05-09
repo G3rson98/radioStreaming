@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'colors.dart';
+
 abstract class Style {
   static const s10 = _Size(10);
   static const s12 = _Size(12);
@@ -14,13 +16,15 @@ abstract class CustomTextTheme{
   static TextTheme textThemeLight = TextTheme(
     titleLarge: Style.s22.w700,
     titleMedium: Style.s14.w400,
+    titleSmall: Style.s14.w500?.apply(color: CustomColors.cornFlower),
     bodyMedium: const TextStyle(fontWeight: FontWeight.w400,fontSize: 14),
   );
 
   static TextTheme textThemeDark = TextTheme(
     titleLarge: Style.s22.w700!.apply(color: Colors.white.withOpacity(0.7)),
     titleMedium: Style.s16.w400!.apply(color: Colors.white.withOpacity(0.7)),
-    bodyMedium: const TextStyle(fontWeight: FontWeight.w400,fontSize: 14),
+    titleSmall: Style.s14.w500?.apply(color: CustomColors.cornFlower),
+    bodyMedium: const TextStyle(fontWeight: FontWeight.w400,fontSize: 14,color: Colors.white),
   );
 }
 

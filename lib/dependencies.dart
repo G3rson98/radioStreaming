@@ -6,6 +6,10 @@ import 'core/audio/just_audio_repository.dart';
 import 'core/http/http_options.dart';
 import 'core/network/url_launcher.dart';
 import 'core/network/url_repository.dart';
+import 'features/announcement/data/data_sources/announcement_remote_datasource.dart';
+import 'features/announcement/data/repositories/announcement_repository_impl.dart';
+import 'features/announcement/domain/repositories/announcement_repository.dart';
+import 'features/announcement/domain/use_cases/get_announcements_use_case.dart';
 import 'features/history/data/data_sources/history_remote_datasource.dart';
 import 'features/history/data/repositories/history_repository_impl.dart';
 import 'features/history/domain/repositories/history_repository.dart';
@@ -30,6 +34,9 @@ List<RepositoryProvider> get repositories{
     RepositoryProvider<RadioRemoteDataSource>(create: (context) => RadioRemoteDataSourceImpl(context.read())),
     RepositoryProvider<SocialNetworkRemoteDataSource>(create: (context) => SocialNetworkRemoteDataSourceImpl(context.read())),
     RepositoryProvider<HistoryRemoteDataSource>(create: (context) => HistoryRemoteDataSourceImpl(context.read())),
+    RepositoryProvider<HistoryRemoteDataSource>(create: (context) => HistoryRemoteDataSourceImpl(context.read())),
+    RepositoryProvider<AnnouncementRemoteDataSource>(create: (context) => AnnouncementRemoteDataSourceImpl(context.read())),
+
 
 
     //Repositories
@@ -37,6 +44,7 @@ List<RepositoryProvider> get repositories{
     RepositoryProvider<RadioRepository>(create: (context) => RadioRepositoryImpl(context.read())),
     RepositoryProvider<SocialNetworkRepository>(create: (context) => SocialNetworkRepositoryImpl(context.read())),
     RepositoryProvider<HistoryRepository>(create: (context) => HistoryRepositoryImpl(context.read())),
+    RepositoryProvider<AnnouncementRepository>(create: (context) => AnnouncementRepositoryImpl(context.read())),
 
 
     //Use cases
@@ -45,6 +53,8 @@ List<RepositoryProvider> get repositories{
 
     RepositoryProvider<GetSocialNetworks>(create: (context) => GetSocialNetworks(context.read())),
     RepositoryProvider<GetPastEpisodes>(create: (context) => GetPastEpisodes(context.read())),
+    RepositoryProvider<GetAnnouncements>(create: (context) => GetAnnouncements(context.read())),
+
 
 
   ];

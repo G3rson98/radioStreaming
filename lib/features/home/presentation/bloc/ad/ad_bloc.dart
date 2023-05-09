@@ -11,7 +11,7 @@ class AdBloc extends Bloc<AdEvent, AdState> {
     on<InitAds>((event, emit) {
 
       final BannerAd myBanner = BannerAd(
-        adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+        adUnitId: 'ca-app-pub-5693811893978918/6522174498',
         size: AdSize.banner,
         request: const AdRequest(),
         listener: const BannerAdListener()

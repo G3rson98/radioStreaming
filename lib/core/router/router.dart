@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../features/announcement/presentation/bloc/announcement_bloc.dart';
+import '../../features/announcement/presentation/pages/announcement_page.dart';
+import '../../features/history/presentation/bloc/history_bloc.dart';
 import '../../features/home/presentation/bloc/ad/ad_bloc.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/home/presentation/bloc/navigation_bar_cubit.dart';
@@ -27,6 +30,7 @@ class CustomRouter{
             return MultiBlocProvider(
               providers: [
                 BlocProvider(create: (context) => RadioBloc(context.read(),context.read())..add(InitRadio())),
+                BlocProvider(create: (context) => HistoryBloc(context.read())..add(GetRadioHistory())),
                 BlocProvider(create: (context) => AudioBloc(context.read())),
                 BlocProvider(create: (context) => NavigationBarCubit()),
                 BlocProvider(create: (context) => AdBloc()..add(InitAds()))
@@ -36,6 +40,12 @@ class CustomRouter{
           },
           routes: [
             _mainRoutesBuilder(const RadioPage(), Routes.radio),
+            _mainRoutesBuilder(
+                BlocProvider(
+                    create: (context) => AnnouncementBloc(context.read())..add(GetAllAnnouncements()),
+                    child: const AnnouncementPage()),
+                Routes.announcement),
+
             _mainRoutesBuilder(BlocProvider(
               create: (context) => WebViewBloc()..add(LoadWebView()),
               child: const VideoPage(),

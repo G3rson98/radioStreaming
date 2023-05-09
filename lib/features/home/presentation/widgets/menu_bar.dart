@@ -21,6 +21,9 @@ class MenuBottomBar extends StatelessWidget {
             if(state==0){
               context.go(Routes.radio);
             }
+            if(state==1){
+              context.go(Routes.announcement);
+            }
             if(state==2){
               context.go(Routes.video);
             }

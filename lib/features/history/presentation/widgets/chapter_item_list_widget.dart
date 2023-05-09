@@ -86,9 +86,7 @@ class ChapterItem extends StatelessWidget {
                 children: [
                   Text(
                     item.title,
-                    style: Style.s14.w500?.apply(
-                      color: CustomColors.cornFlower,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
                   Text(
                     item.subTitle,
