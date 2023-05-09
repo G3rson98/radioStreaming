@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/presentation/theme/colors.dart';
 import '../../../../core/presentation/theme/textstyle.dart';
 import '../../../history/presentation/widgets/history_list_view.dart';
+import '../../../home/presentation/bloc/ad/ad_bloc.dart';
+import '../../../home/presentation/widgets/banner_ad.dart';
 import '../widgets/main_radio_widget.dart';
 
 class RadioPage extends StatelessWidget {
@@ -10,43 +13,46 @@ class RadioPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: CustomColors.licorice,
-      body: Stack(
-        children: [
-          CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    const MainRadioWidget(),
-                    const SizedBox(height: 18),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 33),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Transmisiones pasadas',
-                          style: Style.s20.w700?.apply(
-                            color: Colors.white,
+    return BlocProvider(
+      create: (context) => AdBloc()..add(InitAds()),
+      child: Scaffold(
+        backgroundColor: CustomColors.licorice,
+        body: Stack(
+          children: [
+            CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Column(
+                    children: [
+                      const MainRadioWidget(),
+                      const SizedBox(height: 18),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 33),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Transmisiones pasadas',
+                            style: Style.s20.w700?.apply(
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 9,
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 9,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const HistoryListView(),
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 80),
-              )
-            ],
-          ),
-         // const BannerAdWidget()
-        ],
+                const HistoryListView(),
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: 80),
+                )
+              ],
+            ),
+            const BannerAdWidget()
+          ],
+        ),
       ),
     );
   }

@@ -33,7 +33,6 @@ class CustomRouter{
                 BlocProvider(create: (context) => HistoryBloc(context.read())..add(GetRadioHistory())),
                 BlocProvider(create: (context) => AudioBloc(context.read())),
                 BlocProvider(create: (context) => NavigationBarCubit()),
-                BlocProvider(create: (context) => AdBloc()..add(InitAds()))
               ],
               child: HomePage(child: child),
             );
