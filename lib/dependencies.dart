@@ -16,9 +16,13 @@ import 'features/library/domain/repositories/history_repository.dart';
 import 'features/library/domain/use_cases/get_past_episodes_use_case.dart';
 import 'features/home/domain/use_cases/check_url_use_case.dart';
 import 'features/home/domain/use_cases/open_url_use_case.dart';
+import 'features/menu/data/data_sources/contact_remote_datasource.dart';
 import 'features/menu/data/data_sources/social_network_remote_datasource.dart';
+import 'features/menu/data/repositories/contact_repository_impl.dart';
 import 'features/menu/data/repositories/social_network_repository_impl.dart';
+import 'features/menu/domain/repositories/contact_repository.dart';
 import 'features/menu/domain/repositories/social_network_repository.dart';
+import 'features/menu/domain/use_cases/get_contacts_use_case.dart';
 import 'features/menu/domain/use_cases/get_social_networks_use_case.dart';
 import 'features/radio/data/datasources/radio_remote_datasource.dart';
 import 'features/radio/data/repositories/radio_repository_impl.dart';
@@ -36,6 +40,8 @@ List<RepositoryProvider> get repositories{
     RepositoryProvider<HistoryRemoteDataSource>(create: (context) => HistoryRemoteDataSourceImpl(context.read())),
     RepositoryProvider<HistoryRemoteDataSource>(create: (context) => HistoryRemoteDataSourceImpl(context.read())),
     RepositoryProvider<AnnouncementRemoteDataSource>(create: (context) => AnnouncementRemoteDataSourceImpl(context.read())),
+    RepositoryProvider<ContactRemoteDataSource>(create: (context) => ContactRemoteDataSourceImpl(context.read())),
+
 
 
 
@@ -45,6 +51,7 @@ List<RepositoryProvider> get repositories{
     RepositoryProvider<SocialNetworkRepository>(create: (context) => SocialNetworkRepositoryImpl(context.read())),
     RepositoryProvider<HistoryRepository>(create: (context) => HistoryRepositoryImpl(context.read())),
     RepositoryProvider<AnnouncementRepository>(create: (context) => AnnouncementRepositoryImpl(context.read())),
+    RepositoryProvider<ContactRepository>(create: (context) => ContactRepositoryImpl(context.read())),
 
 
     //Use cases
@@ -54,8 +61,7 @@ List<RepositoryProvider> get repositories{
     RepositoryProvider<GetSocialNetworks>(create: (context) => GetSocialNetworks(context.read())),
     RepositoryProvider<GetPastEpisodes>(create: (context) => GetPastEpisodes(context.read())),
     RepositoryProvider<GetAnnouncements>(create: (context) => GetAnnouncements(context.read())),
-
-
+    RepositoryProvider<GetContacts>(create: (context) => GetContacts(context.read())),
 
   ];
 }

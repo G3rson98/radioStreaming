@@ -27,12 +27,15 @@ class AnnouncementDetailPage extends StatelessWidget {
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                         const SizedBox(height: 10),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: InteractiveViewer(
-                            maxScale: 2.0,
-                            minScale: 0.5,
-                            child: Image.network(state.announcement.image,height: 250,width: double.infinity,fit: BoxFit.cover)
+                        Hero(
+                          tag: 'announcement${state.announcement.id}',
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: InteractiveViewer(
+                              maxScale: 2.0,
+                              minScale: 0.5,
+                              child: Image.network(state.announcement.image,height: 250,width: double.infinity,fit: BoxFit.cover)
+                            ),
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -45,9 +48,9 @@ class AnnouncementDetailPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.bottomCenter,
-                    child: const BannerAdWidget()
+                    child: BannerAdWidget()
                 )
               ],
             );
