@@ -6,7 +6,7 @@ abstract class AudioEvent extends Equatable {
 
 class PlayPause extends AudioEvent {
 
-  final HistoryItem item;
+  final AudioItem item;
 
   const PlayPause({required this.item});
 

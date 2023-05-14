@@ -8,7 +8,27 @@ class CustomThemeData{
   static final ThemeData themeData = ThemeData(
     primaryColor: CustomColors.prussianBlue,
     fontFamily: 'Ubuntu',
-    textTheme: CustomTextTheme.textTheme,
+    textTheme: CustomTextTheme.textThemeDark,
+    useMaterial3: true,
+    scaffoldBackgroundColor: CustomColors.licorice,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: CustomColors.licorice,
+      iconTheme: IconThemeData(color: Colors.white)
+    ),
+    navigationBarTheme: const NavigationBarThemeData(
+      indicatorColor: CustomColors.prussianBlue,
+      backgroundColor:  CustomColors.barBrown,
+        iconTheme: MaterialStatePropertyAll(
+            IconThemeData(
+                color: CustomColors.cornFlower,
+            )
+        ),
+      labelTextStyle: MaterialStatePropertyAll(
+          TextStyle(
+              color: CustomColors.cornFlower
+          )
+      ),
+    ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedIconTheme: IconThemeData(
           color: CustomColors.licorice,

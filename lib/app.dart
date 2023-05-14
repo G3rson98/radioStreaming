@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/presentation/theme/theme_data.dart';
+import 'core/router/router.dart';
 import 'dependencies.dart';
-import 'features/radio/presentation/pages/radio_main.page.dart';
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -12,11 +13,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: repositories,
-      child: MaterialApp(
-        title: 'Flutter Demo',
+      child: MaterialApp.router(
+        title: 'Luz de esperanza',
         debugShowCheckedModeBanner: false,
         theme: CustomThemeData.themeData,
-        home: const RadioPage(),
+        routeInformationProvider: CustomRouter.router.routeInformationProvider,
+        routeInformationParser: CustomRouter.router.routeInformationParser,
+        routerDelegate: CustomRouter.router.routerDelegate,
+
       ),
     );
   }

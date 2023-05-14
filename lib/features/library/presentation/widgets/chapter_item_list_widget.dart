@@ -5,11 +5,12 @@ import '../../../../core/audio/bloc/audio_bloc.dart';
 import '../../../../core/presentation/theme/colors.dart';
 import '../../../../core/presentation/theme/icon_sax_icons.dart';
 import '../../../../core/presentation/theme/textstyle.dart';
-import '../../domain/entities/history_item.dart';
+import '../../../radio/domain/entities/audio_item.dart';
+import '../../../radio/presentation/bloc/radio_bloc.dart';
 import 'audio_progress_bar.dart';
 
 class ChapterItem extends StatelessWidget {
-  final HistoryItem item;
+  final AudioItem item;
 
   const ChapterItem({
     super.key,
@@ -22,23 +23,29 @@ class ChapterItem extends StatelessWidget {
       onTap: () => context.read<AudioBloc>().add(PlayPause(item: item)),
       borderRadius: BorderRadius.circular(12),
       child: SizedBox(
-        height: 75,
+        height: 95,
         child: Row(
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: SizedBox(
-                width: 70,
-                height: 70,
+                width: 80,
+                height: 80,
                 child: Stack(
                   children: [
-                    Image.network(item.image,
+                    Image.network(item.getImage(width: 80,height: 80),
                         fit: BoxFit.cover,
                     ),
                     Container(
                       color: Colors.black12,
                     ),
-                    BlocBuilder<AudioBloc,AudioState>(
+                    BlocConsumer<AudioBloc,AudioState>(
+                      listener: (context,state){
+                        if(state is AudioPlayingOrPaused){
+                          context.read<RadioBloc>().add(StopRadio());
+
+                        }
+                      },
                       builder: (_,state){
                         if(state is AudioPlayingOrPaused){
                           if(state.idPlaying == item.id){
@@ -79,11 +86,8 @@ class ChapterItem extends StatelessWidget {
                 children: [
                   Text(
                     item.title,
-                    style: Style.s14.w500?.apply(
-                      color: CustomColors.cornFlower,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
-                  const SizedBox(height: 5),
                   Text(
                     item.subTitle,
                     maxLines: 2,
@@ -95,11 +99,6 @@ class ChapterItem extends StatelessWidget {
                   AudioProgressBar(currentIdPlaying: item.id)
                 ],
               ),
-            ),
-            const Icon(
-              IconSax.document_download,
-              color: Colors.orange,
-              size: 24,
             ),
           ],
         ),

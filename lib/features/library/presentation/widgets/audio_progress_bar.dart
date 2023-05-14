@@ -14,6 +14,7 @@ class AudioProgressBar extends StatelessWidget {
       builder: (context, state) {
         if(state is AudioPlayingOrPaused){
           if(state.idPlaying == currentIdPlaying){
+
             return Column(
               children: [
                 SizedBox(

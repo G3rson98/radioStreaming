@@ -5,7 +5,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/audio/audio_repository.dart';
-import '../../../features/radio/domain/entities/history_item.dart';
+import '../../../features/radio/domain/entities/audio_item.dart';
+import '../../http/http_options.dart';
 
 part 'audio_event.dart';
 part 'audio_state.dart';
@@ -19,8 +20,7 @@ class AudioBloc extends Bloc<AudioEvent, AudioState> {
     on<PlayPause>((event, emit) async {
       final currentState = state;
 
-      //TODO: Ajustar luego
-      final urlToPlay = 'https://wyfv6blw.directus.app/assets/${event.item.file}';
+      final urlToPlay = '${HttpOptions.apiUrl}/assets/${event.item.file}';
 
       if(currentState is AudioPlayingOrPaused){
 
@@ -44,7 +44,7 @@ class AudioBloc extends Bloc<AudioEvent, AudioState> {
       }
 
 
-      _audio.playFromUrl(event.item.id,urlToPlay,event.item.title,event.item.image);
+      _audio.playFromUrl(event.item.id,urlToPlay,event.item.title,event.item.getImage());
 
       _durationSubscription = _audio.positionStream.listen((event) {
         add(Playing(currentPosition: event));
@@ -71,14 +71,19 @@ class AudioBloc extends Bloc<AudioEvent, AudioState> {
 
       if(currentState is AudioPlayingOrPaused){
         _audio.seekAudioPosition(event.currentPosition);
-        emit(AudioPlayingOrPaused(idPlaying: currentState.idPlaying,currentPosition: event.currentPosition,totalDuration: _audio.audioDuration ?? const Duration(),isPaused: currentState.isPaused));
+        final totalDuration = _audio.audioDuration ?? const Duration();
+        if(event.currentPosition.inSeconds>=totalDuration.inSeconds){
+          emit(AudioNotPlaying());
+          return ;
+        }
+        emit(AudioPlayingOrPaused(idPlaying: currentState.idPlaying,currentPosition: event.currentPosition,totalDuration: totalDuration,isPaused: currentState.isPaused));
       }
 
     });
 
     on<Stop>((event, emit) {
 
-      _audio.stop();
+      //_audio.stop();
       emit(AudioNotPlaying());
     });
   }

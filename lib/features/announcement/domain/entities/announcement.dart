@@ -1,15 +1,14 @@
-class HistoryItem{
+class Announcement{
   final int id;
   final String title;
-  final String subTitle;
   final String image;
-  final String file;
+  final String description;
 
-  HistoryItem({
+  Announcement({
     required this.id,
     required this.title,
-    this.subTitle = '',
     required this.image,
-    required this.file
+    required this.description
   });
+
 }
