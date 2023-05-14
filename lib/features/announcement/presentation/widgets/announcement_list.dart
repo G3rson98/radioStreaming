@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/presentation/theme/colors.dart';
-import '../../../../core/presentation/theme/icon_sax_icons.dart';
+import '../../../../core/presentation/icons/icon_sax_icons.dart';
 import '../bloc/announcement_bloc.dart';
 import 'announcement_item.dart';
 

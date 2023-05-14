@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
+
 
 import '../../../../core/presentation/theme/colors.dart';
 import '../../../home/presentation/bloc/url/url_bloc.dart';
+import '../../../home/presentation/widgets/network_or_svg_picture.dart';
 import '../../domain/entities/social_network.dart';
 
 class SocialNetworkMenuItem extends StatelessWidget {
@@ -24,7 +25,10 @@ class SocialNetworkMenuItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         onTap: () => context.read<UrlBloc>().add(LaunchUrl(link:socialNetwork.link)),
         child: ListTile(
-          leading: SvgPicture.network(socialNetwork.imageUrl,colorFilter: ColorFilter.mode(socialNetwork.color, BlendMode.srcIn),),
+          leading: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 30,maxHeight: 30),
+              child: NetworkOrSvgPicture(imageUrl: socialNetwork.imageUrl,svgColor: socialNetwork.color)
+          ),
           title: Text(socialNetwork.name,style: TextStyle(color: socialNetwork.color)),
         ),
       ),

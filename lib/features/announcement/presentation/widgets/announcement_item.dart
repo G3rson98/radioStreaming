@@ -24,9 +24,12 @@ class AnnouncementItem extends StatelessWidget {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 10),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: Image.network(announcement.image,height: 200,width: double.infinity,fit: BoxFit.cover),
+            Hero(
+              tag: 'announcement${announcement.id}',
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.network(announcement.image,height: 200,width: double.infinity,fit: BoxFit.cover),
+              ),
             ),
             const SizedBox(height: 10),
             SizedBox(
