@@ -15,19 +15,22 @@ class MenuBottomBar extends StatelessWidget {
         return false;
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
         child: BlocConsumer<NavigationBarCubit, int>(
           listener: (_,state){
             if(state==0){
               context.go(Routes.radio);
             }
             if(state==1){
-              context.go(Routes.announcement);
+              context.go(Routes.library);
             }
             if(state==2){
-              context.go(Routes.video);
+              context.go(Routes.announcement);
             }
             if(state==3){
+              context.go(Routes.video);
+            }
+            if(state==4){
               context.go(Routes.menu);
             }
           },
@@ -42,6 +45,10 @@ class MenuBottomBar extends StatelessWidget {
                   NavigationDestination(
                       icon: Icon(IconSax.radio),
                       label: 'radio'
+                  ),
+                  NavigationDestination(
+                      icon: Icon(IconSax.music_library_2),
+                      label: 'libreria'
                   ),
                   NavigationDestination(
                       icon: Icon(IconSax.notification),

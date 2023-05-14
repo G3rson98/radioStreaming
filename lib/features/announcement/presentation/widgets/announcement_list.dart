@@ -15,7 +15,7 @@ class AnnouncementList extends StatelessWidget {
       builder: (context, state) {
         if( state is AnnouncementLoaded){
           return SliverPadding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 40),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                   childCount: state.announcements.length,

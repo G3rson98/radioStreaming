@@ -10,10 +10,10 @@ import 'features/announcement/data/data_sources/announcement_remote_datasource.d
 import 'features/announcement/data/repositories/announcement_repository_impl.dart';
 import 'features/announcement/domain/repositories/announcement_repository.dart';
 import 'features/announcement/domain/use_cases/get_announcements_use_case.dart';
-import 'features/history/data/data_sources/history_remote_datasource.dart';
-import 'features/history/data/repositories/history_repository_impl.dart';
-import 'features/history/domain/repositories/history_repository.dart';
-import 'features/history/domain/use_cases/get_past_episodes_use_case.dart';
+import 'features/library/data/data_sources/history_remote_datasource.dart';
+import 'features/library/data/repositories/history_repository_impl.dart';
+import 'features/library/domain/repositories/history_repository.dart';
+import 'features/library/domain/use_cases/get_past_episodes_use_case.dart';
 import 'features/home/domain/use_cases/check_url_use_case.dart';
 import 'features/home/domain/use_cases/open_url_use_case.dart';
 import 'features/menu/data/data_sources/social_network_remote_datasource.dart';
