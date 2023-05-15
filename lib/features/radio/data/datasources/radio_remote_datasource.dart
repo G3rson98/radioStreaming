@@ -35,7 +35,8 @@ class RadioRemoteDataSourceImpl implements RadioRemoteDataSource{
         ok: true,
         data: RadioModel.fromJson(response.data)
       );
-    }on DioError{
+    }on DioError catch (e){
+      print(e.error);
       return HttpResponse(
           message: 'error'
       );

@@ -67,7 +67,12 @@ class MainRadioWidget extends StatelessWidget {
             ],
           );
         }
-        //TODO: Cambiar los widgets para error y carga
+
+        if(state is RadioLoading){
+          return const Center(child: CircularProgressIndicator.adaptive(),);
+        }
+
+        //TODO: Cambiar los widgets para error
         return const SizedBox();
       },
     );

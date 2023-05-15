@@ -8,6 +8,7 @@ class HttpOptions{
 
   static Dio get dio => Dio(BaseOptions(
     baseUrl: apiUrl,
+
     headers: {
       "Authorization" : "Bearer qPERwt_qoreC62Vjtp5GuTZlCWYX7lsK"
     },
