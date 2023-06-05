@@ -6,6 +6,7 @@ import 'package:just_audio_background/just_audio_background.dart';
 
 import 'app.dart';
 import 'core/http/http_override.dart';
+import 'core/network/push_notification_impl.dart';
 
 void main() async {
   await JustAudioBackground.init(
@@ -15,6 +16,8 @@ void main() async {
   );
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
+
+  PushNotificationImpl.init();
   MobileAds.instance.initialize();
   runApp(const MyApp());
 }

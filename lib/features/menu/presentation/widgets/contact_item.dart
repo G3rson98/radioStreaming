@@ -27,7 +27,7 @@ class ContactItem extends StatelessWidget {
         child: ListTile(
           leading: NetworkOrSvgPicture(imageUrl: contact.icon,height: 50,width: 50,) ,
           trailing: (contact.contactUrl!=null) ? const Icon(IconSax.link,color: Colors.white) : null,
-          title: Text(contact.name),
+          title: Text(contact.name,style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white)),
           subtitle: Text(contact.job,style: TextStyle(color: Colors.white.withOpacity(0.5))),
           enabled: true,
         ),

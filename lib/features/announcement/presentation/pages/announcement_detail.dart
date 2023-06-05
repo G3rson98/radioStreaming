@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 import '../../../home/presentation/widgets/banner_ad.dart';
 import '../bloc/detail/announcement_detail_bloc.dart';
@@ -39,8 +39,7 @@ class AnnouncementDetailPage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        MarkdownBody(
-                          styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)),
+                        Html(
                           data: state.announcement.description,
                         ),
                         const SizedBox(height: 60)

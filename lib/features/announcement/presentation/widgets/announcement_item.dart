@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 import '../../../../core/router/router.dart';
 import '../../domain/entities/announcement.dart';
@@ -34,11 +34,8 @@ class AnnouncementItem extends StatelessWidget {
             const SizedBox(height: 10),
             SizedBox(
               height: 150,
-              child: Markdown(
-                styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)),
-                physics: const NeverScrollableScrollPhysics(),
+              child: Html(
                 data: announcement.description,
-                padding: EdgeInsets.zero,
               ),
             ),
           ],
