@@ -7,7 +7,7 @@ class PushNotificationImpl{
 
   static void init() {
     //Remove this method to stop OneSignal Debugging
-    OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+    // OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
 
     OneSignal.shared.setAppId("cfe63e4f-c7aa-4e3f-84f0-d41248837a98");
 
