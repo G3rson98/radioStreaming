@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 class HttpOptions{
 
-  static const _devUrl = 'https://directus.elroir.cloud';
+  static const _devUrl = '<<DIRECTUS URL>>';
 
   static const apiUrl = _devUrl;
 
@@ -10,7 +10,7 @@ class HttpOptions{
     baseUrl: apiUrl,
 
     headers: {
-      "Authorization" : "Bearer qPERwt_qoreC62Vjtp5GuTZlCWYX7lsK"
+      "Authorization" : "<<DIRECTUS API KEY>>"
     },
   ));
 }
