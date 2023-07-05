@@ -12,19 +12,19 @@ class RadioPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AdBloc()..add(InitAds()),
-      child: Scaffold(
+      child: const Scaffold(
         body: Stack(
           children: [
             SingleChildScrollView(
-              padding: const EdgeInsets.only(top: 40),
+              padding: EdgeInsets.only(top: 40),
               child: Column(
-                children: const [
+                children: [
                   MainRadioWidget(),
                   SizedBox(height: 80),
                 ],
               ),
             ),
-            const BannerAdWidget()
+            BannerAdWidget()
           ],
         ),
       ),
